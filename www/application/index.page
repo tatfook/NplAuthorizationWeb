@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title ng-bind="title">nplcad</title>
+    <link rel="icon" href="/nplcad/assets/imgs/icon/logo.ico" type="image/x-icon" />
+    <!-- main css -->
+	<? RenderServerMainCss() ?>
+</head>
+<?npl
+?>
+<body>
+<div ng-controller="indexController">
+    <div style="z-index: 1" id="__indexContent__">
+        <div>
+            <div id="__UserSitePageContentContainer__">
+                <div id="__UserSitePageContent__"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<? RenderServerMainScript() ?>
+</body>
+</html>

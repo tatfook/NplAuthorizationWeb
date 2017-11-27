@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5CD48863-5462-457C-AC67-41AE11E1818D}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NplAuthorizationWeb</RootNamespace>
+    <AssemblyName>NplAuthorizationWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="README.md" />
+    <Content Include="startweb.bat" />
+    <Content Include="www\deps\angular\angular.min.js.gzip" />
+    <Content Include="www\deps\angular\angular.min.js.map" />
+    <Content Include="www\deps\angular\bower.json" />
+    <Content Include="www\deps\angular\LICENSE.md" />
+    <Content Include="www\deps\angular\package.json" />
+    <Content Include="www\deps\angular\README.md" />
+    <Content Include="www\deps\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="www\deps\bootstrap\css\bootstrap-theme.min.css.map" />
+    <Content Include="www\deps\bootstrap\css\bootstrap.css.map" />
+    <Content Include="www\deps\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="www\deps\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="www\deps\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="www\deps\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="www\deps\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="www\deps\satellizer\satellizer.js.map" />
+    <Content Include="www\functions\common.page" />
+    <Content Include="www\functions\modelbase.page" />
+    <Content Include="www\index.page" />
+    <Content Include="www\application\index.page" />
+    <Content Include="www\models\auth.page" />
+    <Content Include="www\mods\main\model\main.page" />
+    <Content Include="www\mods\main\model\tabledb.page" />
+    <Content Include="www\pages\example.page" />
+    <Content Include="www\routes.page" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="www\assets\css\main.css" />
+    <Content Include="www\deps\angular\angular-csp.css" />
+    <Content Include="www\deps\angular\angular.js" />
+    <Content Include="www\deps\angular\angular.min.js" />
+    <Content Include="www\deps\angular\index.js" />
+    <Content Include="www\deps\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="www\deps\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="www\deps\bootstrap\css\bootstrap.css" />
+    <Content Include="www\deps\bootstrap\css\bootstrap.min.css" />
+    <Content Include="www\deps\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="www\deps\bootstrap\js\bootstrap.js" />
+    <Content Include="www\deps\bootstrap\js\bootstrap.min.js" />
+    <Content Include="www\deps\bootstrap\js\npm.js" />
+    <Content Include="www\deps\jquery\jquery-ui.min.css" />
+    <Content Include="www\deps\jquery\jquery-ui.min.js" />
+    <Content Include="www\deps\jquery\jquery.min.js" />
+    <Content Include="www\deps\js-base32\base32.js" />
+    <Content Include="www\deps\js-base32\base32.min.js" />
+    <Content Include="www\deps\js-base64\base64.min.js" />
+    <Content Include="www\deps\js-base64\jquery-cookie\jquery.cookie.js" />
+    <Content Include="www\deps\requirejs\domReady.js" />
+    <Content Include="www\deps\requirejs\require.js" />
+    <Content Include="www\deps\requirejs\text.js" />
+    <Content Include="www\deps\satellizer\satellizer.js" />
+    <Content Include="www\deps\satellizer\satellizer.min.js" />
+    <Content Include="www\js\app.js" />
+    <Content Include="www\js\config.js" />
+    <Content Include="www\js\helper\util.js" />
+    <Content Include="www\js\indexController.js" />
+    <Content Include="www\js\main.js" />
+    <Content Include="www\js\preload.js" />
+    <Content Include="www\mods\main\controller\mainController.js" />
+    <Content Include="www\mods\main\html\main.html" />
+    <Content Include="www\webserver.config.xml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>62135</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:62135/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,111 @@
+﻿<?npl
+--[[
+Title: auth.page
+Author: leio
+Date: 2017/11/24
+Desc: 
+
+http://localhost:8099/models/auth/helloworld?a=2
+]]
+local GithubService = NPL.load("NplAuthorization/github/GithubService.lua");
+local client_secret = "daofengkeji";
+local client_secret_github = "eebc2e99b29bf965704f8f8d720f668cd064c326";
+
+local auth = inherit(models.abstract.base, gettable("models.auth"));
+
+function auth:api_helloworld(params)
+	return {params}
+end
+-- github callback
+function auth:api_githubcallback(params)
+    commonlib.echo("========params");
+    commonlib.echo(params);
+    local code = params.code;
+    local client_id = params.clientId;
+    local redirect_uri = params.redirectUri;
+
+    local input = {
+        code = code,
+        client_id = client_id,
+        client_secret = client_secret_github,
+        redirect_uri = redirect_uri,
+    };
+    -- Step 1. Exchange authorization code for access token.
+    System.os.GetUrl({url = 'https://github.com/login/oauth/access_token', qs = input }, resume);
+    local error, msg = yield();
+    LOG.std(nil, "debug", "github login state", error);
+	LOG.std(nil, "debug", "github login msg", msg);
+    local token;
+    local info;
+    if(msg and msg.data)then
+        local accessToken = util.parse_str(msg.data);
+        commonlib.echo("=========accessToken");
+        commonlib.echo(accessToken);
+        if(accessToken)then
+            if(accessToken.error)then
+            else
+                local headers = { ['User-Agent'] = 'Satellizer' };
+                -- Step 2. Retrieve profile information about the current user.
+                System.os.GetUrl({ url = 'https://api.github.com/user' .. '?access_token=' .. accessToken.access_token, headers = headers, json = true }, resume)
+                local err, msg = yield()
+                local data = msg.data;
+                LOG.std(nil,"debug","github data", data)
+                local githubId = tostring(data.id)
+                local serviceUsername = data.login
+
+
+                local github = GithubService:new():onInit(accessToken.access_token,nil,"master");
+                --github:getContent(serviceUsername,"Documents","");
+                --github:getContent(serviceUsername,"Documents","Test/test.lua");
+                --github:createFile(serviceUsername,"Documents","Test/test/test4.lua","hello 世界");
+                --github:updateFile(serviceUsername,"Documents","Test/test/test4.lua","hello 世界世界");
+                --github:deleteFile(serviceUsername,"Documents","Test/test/test4.lua");
+                --github:getRootTree(serviceUsername,"Documents");
+                --github:listHooks(serviceUsername,"Documents");
+                github:createHook(serviceUsername,"Documents","http://47.52.20.230:8099/login/model/login/githubwebhook");
+                token = accessToken.access_token;
+            end
+            
+        end
+    end
+    return { token = token}
+end
+-- keepwork callback
+function auth:api_callback(params)
+    local code = params.code;
+    local client_id = params.clientId;
+    local url = "http://keepwork.com/api/wiki/models/oauth_app/getTokenByCode";
+
+    local input = {
+        code = code,
+        client_id = client_id,
+        client_secret = client_secret,
+    };
+    System.os.GetUrl({url = url, qs = input }, resume);
+    local error, msg = yield();
+    LOG.std(nil, "debug", "keepwork login state", error);
+	LOG.std(nil, "debug", "keepwork login msg", msg);
+    local token;
+    local info;
+    if(msg and msg.data and msg.data.token)then
+        token = msg.data.token;
+
+        local url = "http://keepwork.com/api/wiki/models/user/getProfile";
+        local input = {
+            url = url,
+            json = true,
+            headers = {
+                ["Authorization"] = " Bearer " .. token,
+            }
+        };
+        System.os.GetUrl(input, resume);
+        local error, msg = yield();
+        LOG.std(nil, "debug", "keepwork getProfile state", error);
+	    LOG.std(nil, "debug", "keepwork getProfile msg", msg);
+        if(msg and msg.data and msg.data.data)then
+            info = msg.data.data;
+        end
+	    LOG.std(nil, "debug", "keepwork getProfile info", info);
+    end
+    return { token = token, error = error, info = info, }
+end

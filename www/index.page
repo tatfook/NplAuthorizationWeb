@@ -1,0 +1,17 @@
+﻿<?npl
+--[[
+Title: all requests are directed to this page.
+Author: leio
+Date: 2017/11/24
+Desc: 
+]]
+
+-- we will not load complete framework, but only ajax and helper functions
+WP_USE_MINI_LOADER = true;
+include_once("script/apps/WebServer/admin/wp-main.page");
+
+WEB_ROOT = dirname(__FILE__);
+-- call the router  
+include_once("./routes.page")
+?>
+

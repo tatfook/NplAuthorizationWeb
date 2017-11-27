@@ -1,0 +1,26 @@
+﻿<?npl
+--[[
+Title: common.page 
+Author: leio
+Date: 2017/11/24
+Desc: Global functions
+--]]
+function RenderServerMainCss()
+	local bustVersion = getBustVersion()
+	echo(format('<link href="/assets/css/main.css?bust=%s" rel="stylesheet">\n', bustVersion))
+end
+
+function RenderServerMainScript() 
+	local config = {}
+	config.hostname = request:GetHost()
+    config.webroot = "./"
+	config.bustVersion = getBustVersion()
+	echo(format('<script>window.global_config=%s</script>\n', json_encode(config)))
+	echo(format('<script src="/js/config.js?bust=%s"></script>\n', config.bustVersion))
+    --Note: data-main attribute tells require.js to load main.js after require.js loads.
+	echo(format('<script data-main="/js/main.js?bust=%s" src="/deps/requirejs/require.js?bust=%s"></script>\n', config.bustVersion, config.bustVersion))
+end
+function getBustVersion()
+	local serverUpdateTime = ParaGlobal.GetTimeFormat("HH:mm:ss")
+    return serverUpdateTime;
+end

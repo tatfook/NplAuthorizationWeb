@@ -1,0 +1,9 @@
+<?npl
+--[[
+Title: main.page
+Author: leio
+Date: 2017/11/13
+Desc: 
+]]
+local main = inherit(models.abstract.base, gettable("models.main"));
+
