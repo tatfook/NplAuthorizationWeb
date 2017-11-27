@@ -6,7 +6,7 @@ Date: 2017/11/24
 Desc: redirect AJAX URL to model functions
 ]]
 
-ParaIO.AddSearchPath("npl_mod");
+ParaIO.AddSearchPath("npl_mod/NplAuthorization/npl_mod");
 
 
 --load global functions
@@ -19,8 +19,26 @@ if(page_name)then
     include("./pages/" .. page_name .. ".page")
     return
 end
+
+local model_filename = nil;
+local model_namespace = nil;
+local model_params = nil;
+local mod_name,model_name,params  = path:match("mods/([%w_]+)/model/([%w_]+)/?(.*)");
+if(mod_name and model_name)then
+    model_filename  = string.format("./application/mods/%s/model/%s.page",mod_name,model_name);;
+    model_namespace  = string.format("models.mods.%s.%s",mod_name,model_name);
+    model_params = params;
+end
 local model_name,params  = path:match("models/([%w_]+)/?(.*)");
 if(model_name)then
+    model_filename  = string.format("./models/%s.page",model_name);;
+    model_namespace  = string.format("models.%s",model_name);
+    model_params = params;
+end
+local function default_model_action(model_filename,model_namespace,model_params)
+    if(not model_filename or not model_namespace or not model_params)then
+        return
+    end
     -- Allow for cross-domain requests (from the frontend). 
 	send_origin_headers();
 	-- cross-domain request allow
@@ -42,19 +60,18 @@ if(model_name)then
 		return response:send("OPTIONS", true);
 	end
 
-    local modelfilename = "./models/"..model_name..".page";
-	if(not file_exists(modelfilename)) then
+	if(not file_exists(model_filename)) then
 		return response:status(404):send({message="invalid model"});
 	end
-	include_once(modelfilename);
-    local model = models and models[model_name];
+	include_once(model_filename);
+    local model = gettable(model_namespace);
 	if(not model) then
 		return response:status(404):send({message="model not found"});
 	else
 		model = model:new();
 	end
 
-	local func_name = params and params:match("^(%w+)");
+	local func_name = model_params and model_params:match("^(%w+)");
 	if(func_name) then
 		if(func_name == "new") then
 			if(model.create) then
@@ -88,9 +105,11 @@ if(model_name)then
 			return response:send(result, true);
 		end
 	end
+end
+if(model_filename and model_namespace)then
+    default_model_action(model_filename,model_namespace,model_params);
     return
 end
-
 include(WEB_ROOT .. "/application/index.page")
 ?>
 

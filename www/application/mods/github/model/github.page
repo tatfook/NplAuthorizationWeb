@@ -1,0 +1,213 @@
+﻿<?npl
+--[[
+Title: auth.page
+Author: leio
+Date: 2017/11/24
+Desc: 
+http://localhost:8099/mods/github/model/github/webhookcallback
+http://localhost:8099/mods/github/model/github/logincallback
+]]
+local GithubService = NPL.load("NplAuthorization/github/GithubService.lua");
+local client_secret = "eebc2e99b29bf965704f8f8d720f668cd064c326";
+local github = inherit(models.abstract.base, gettable("models.mods.github.github"));
+
+local function get_token()
+    if(not request)then
+        return;
+    end
+    local a = request:header("Authorization");
+    if(not a)then
+        return;
+    end
+	local token = a:match("%s+(%S+)");
+    return token; 
+end
+-- github webhook callback
+function github:api_webhookcallback(params)
+    commonlib.echo("========params");
+    commonlib.echo(params);
+	return {params}
+end
+-- login callback
+function github:api_logincallback(params)
+    commonlib.echo("========params");
+    commonlib.echo(params);
+    local code = params.code;
+    local client_id = params.clientId;
+    local redirect_uri = params.redirectUri;
+
+    local input = {
+        code = code,
+        client_id = client_id,
+        client_secret = client_secret ,
+        redirect_uri = redirect_uri,
+    };
+    -- Step 1. Exchange authorization code for access token.
+    System.os.GetUrl({url = 'https://github.com/login/oauth/access_token', qs = input }, resume);
+    local error, msg = yield();
+    LOG.std(nil, "debug", "github login state", error);
+	LOG.std(nil, "debug", "github login msg", msg);
+
+    local token;
+    if(msg and msg.data)then
+        local accessToken = util.parse_str(msg.data);
+	    LOG.std(nil, "debug", "github login accessToken", accessToken);
+        if(accessToken)then
+            token = accessToken.access_token;
+        end
+    end
+    return { token = token }
+end
+
+function github:api_getProfile()
+    local token = get_token();
+    if(not token)then
+        return
+    end
+    local github = GithubService:new():onInit(token);
+    github:getProfile(resume);
+    local err, msg = yield();
+    return msg
+end
+function github:api_getContent(params)
+	local token = get_token();
+    if(not params or not token)then
+        return
+    end
+    local owner = params.owner;
+    local repo = params.repo;
+    local path = params.path;
+    local github = GithubService:new():onInit(token);
+    github:getContent(owner,repo,path,resume);
+    local err, msg = yield();
+    local content;
+    if(err == 200)then
+        if(msg and msg.data)then
+            content = msg.data; --raw data
+        end
+    end
+    return { content = content };
+end
+function github:api_createFile(params)
+	local token = get_token();
+    if(not params or not token)then
+        return
+    end
+    local owner = params.owner;
+    local repo = params.repo;
+    local path = params.path;
+    local content = params.content;
+    local github = GithubService:new():onInit(token);
+    github:createFile(owner,repo,path,content,resume);
+    local err, msg = yield();
+    return msg
+end
+function github:api_updateFile(params)
+	local token = get_token();
+    if(not params or not token)then
+        return
+    end
+    local owner = params.owner;
+    local repo = params.repo;
+    local path = params.path;
+    local content = params.content;
+
+    local github = GithubService:new():onInit(token);
+    github:updateFile(owner,repo,path,content,resume);
+    local err, msg = yield();
+    return msg
+end
+function github:api_deleteFile(params)
+	local token = get_token();
+    if(not params or not token)then
+        return
+    end
+    local owner = params.owner;
+    local repo = params.repo;
+    local path = params.path;
+
+    local github = GithubService:new():onInit(token);
+    github:deleteFile(owner,repo,path,resume);
+    local err, msg = yield();
+    return msg
+end
+function github:api_getRootTree(params)
+	local token = get_token();
+	 if(not params or not token)then
+        return
+    end
+    local owner = params.owner;
+    local repo = params.repo;
+
+    local github = GithubService:new():onInit(token);
+    github:getRootTree(owner,repo,resume);
+    local err, msg = yield();
+    return msg
+end
+function github:api_listHooks(params)
+	local token = get_token();
+	 if(not params or not token)then
+        return
+    end
+    local owner = params.owner;
+    local repo = params.repo;
+
+    local github = GithubService:new():onInit(token);
+    github:listHooks(owner,repo,resume);
+    local err, msg = yield();
+    return msg
+end
+function github:api_createHook(params)
+	local token = get_token();
+	if(not params or not token)then
+        return
+    end
+    local owner = params.owner;
+    local repo = params.repo;
+    local callback_url = params.callback_url;
+
+    local github = GithubService:new():onInit(token);
+    github:createHook(owner,repo,callback_url,resume);
+    local err, msg = yield();
+    return msg
+end
+function github:api_getRepos(params)
+	local token = get_token();
+	if(not params or not token)then
+        return
+    end
+    local visibility = params.visibility;
+    local affiliation = params.affiliation;
+    local sort = params.sort;
+    local direction = params.direction;
+
+    local github = GithubService:new():onInit(token);
+    github:getRepos(visibility,affiliation,sort,direction,resume);
+    local err, msg = yield();
+    return msg
+end
+function github:api_createRepos(params)
+	local token = get_token();
+	if(not params or not token)then
+        return
+    end
+    local name = params.name;
+
+    local github = GithubService:new():onInit(token);
+    github:createRepos(name,resume);
+    local err, msg = yield();
+    return msg
+end
+function github:api_deleteRepos(params)
+	local token = get_token();
+	if(not params or not token)then
+        return
+    end
+    local owner = params.owner;
+    local name = params.name;
+
+    local github = GithubService:new():onInit(token);
+    github:deleteRepos(owner,name,resume);
+    local err, msg = yield();
+    return msg
+end

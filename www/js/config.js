@@ -20,7 +20,7 @@ Date: 2017/10/19
     }
     config.loadMainContent = function (cb, errcb) {
         var mod_name = config.util.getModName();
-        var pageurl = "mods/" + mod_name + "/controller/" + mod_name + "Controller";
+        var pageurl = "application/mods/" + mod_name + "/controller/" + mod_name + "Controller";
         if (pageurl) {
             require([pageurl], function (mainContent) {
                 if (typeof (mainContent) == "object") {

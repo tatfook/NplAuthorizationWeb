@@ -6,7 +6,7 @@ Date: 2017/10/24
 define([
     'app',
     'helper/util',
-    'text!mods/main/html/main.html',
+    'text!application/mods/main/html/main.html',
 ], function (app, util, htmlContent) {
     app.controller('mainController', [
         '$auth',

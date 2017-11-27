@@ -1,0 +1,37 @@
+﻿<div ng-controller="githubController">
+    <input type="button" value="Login Github" ng-click="OnLoginGithub()"/>
+    <input type="button" value="getRootTree" ng-click="getRootTree()"/>
+    <input type="button" value="getContent" ng-click="getContent()"/>
+    <input type="button" value="createFile" ng-click="createFile()"/>
+    <input type="button" value="updateFile" ng-click="updateFile()"/>
+    <input type="button" value="deleteFile" ng-click="deleteFile()"/>
+    <input type="button" value="getRootTree" ng-click="getRootTree()"/>
+    <input type="button" value="listHooks" ng-click="listHooks()"/>
+    <input type="button" value="createHook" ng-click="createHook()"/>
+    <input type="button" value="getRepos" ng-click="getRepos()"/>
+    <input type="button" value="createRepos" ng-click="createRepos()"/>
+    <input type="button" value="deleteRepos" ng-click="deleteRepos()"/>
+    <div>
+        <div>owner:</div>
+        <div>{{owner}}</div>
+        <div>seleted_repo:</div>
+        <div>{{seleted_repo}}</div>
+        <div>seleted_file:</div>
+        <div>{{seleted_file}}</div>
+        <b>repos</b>
+
+        <div ng-repeat="(key, value) in repos">
+            <input type="button" value="{{value.name}}" ng-click="getRootTree(value.name)" />
+        </div>
+        <b>files</b>
+        <div ng-repeat="(key, value) in files">
+            <input type="button" value="{{value.path}}" ng-click="getContent(value.path)" />
+        </div>
+        <div>
+            <b>content</b>
+            <div>
+                {{seleted_content}}
+            </div>
+        </div>
+    </div>
+</div>

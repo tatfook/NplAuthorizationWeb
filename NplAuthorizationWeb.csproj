@@ -47,8 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="npl_mod\NplAuthorization\NplAuthorization.csproj" />
+    <Content Include="npl_mod\NplAuthorization\NplAuthorization.sln" />
     <Content Include="README.md" />
     <Content Include="startweb.bat" />
+    <Content Include="www\application\mods\github\controller\githubController.js" />
+    <Content Include="www\application\mods\github\html\github.html" />
+    <Content Include="www\application\mods\main\controller\mainController.js" />
+    <Content Include="www\application\mods\main\html\main.html" />
     <Content Include="www\deps\angular\angular.min.js.gzip" />
     <Content Include="www\deps\angular\angular.min.js.map" />
     <Content Include="www\deps\angular\bower.json" />
@@ -69,8 +75,6 @@
     <Content Include="www\index.page" />
     <Content Include="www\application\index.page" />
     <Content Include="www\models\auth.page" />
-    <Content Include="www\mods\main\model\main.page" />
-    <Content Include="www\mods\main\model\tabledb.page" />
     <Content Include="www\pages\example.page" />
     <Content Include="www\routes.page" />
   </ItemGroup>
@@ -106,9 +110,22 @@
     <Content Include="www\js\indexController.js" />
     <Content Include="www\js\main.js" />
     <Content Include="www\js\preload.js" />
-    <Content Include="www\mods\main\controller\mainController.js" />
-    <Content Include="www\mods\main\html\main.html" />
     <Content Include="www\webserver.config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="npl_mod\NplAuthorization\.git" />
+    <Content Include="npl_mod\NplAuthorization\.gitignore" />
+    <Content Include="npl_mod\NplAuthorization\npl_mod\NplAuthorization\github\GithubService.lua" />
+    <Content Include="npl_mod\NplAuthorization\npl_mod\NplAuthorization\gitlab\GitlabService.lua" />
+    <Content Include="npl_mod\NplAuthorization\npl_mod\NplAuthorization\keepwork\KeepworkService.lua" />
+    <Content Include="npl_mod\NplAuthorization\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="www\application\mods\main\model\main.page" />
+    <Content Include="www\application\mods\main\model\tabledb.page" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="www\application\mods\github\model\github.page" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

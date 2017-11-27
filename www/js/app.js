@@ -16,11 +16,11 @@ define([
         $httpProvider.interceptors.push('SatellizerInterceptor');
         // github »œ÷§≈‰÷√
         $authProvider.github({
-            url: "/models/auth/githubcallback",
+            url: "/mods/github/model/github/logincallback",
             clientId: '1b93854e42d00748154f',
             redirectUri: window.location.origin + '/pages/example',
-            // scope: ["public_repo", "delete_repo"],
-            scope: ["public_repo"],
+            scope: ["public_repo", "delete_repo"],
+            //scope: ["public_repo"],
         });
         // keepwork
         $authProvider.oauth2({
