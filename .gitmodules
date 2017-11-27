@@ -1,0 +1,3 @@
+[submodule "npl_mod/NplAuthorization"]
+	path = npl_mod/NplAuthorization
+	url = https://github.com/NPLPackages/NplAuthorization.git
