@@ -14,11 +14,6 @@ include_once(WEB_ROOT .. 'functions/common.page')
 include_once(WEB_ROOT .. 'functions/modelbase.page')
 
 local path = pagename() or "";
-local page_name,params  = path:match("pages/([%w_]+)/?(.*)");
-if(page_name)then
-    include("./pages/" .. page_name .. ".page")
-    return
-end
 
 local model_filename = nil;
 local model_namespace = nil;
@@ -108,6 +103,12 @@ local function default_model_action(model_filename,model_namespace,model_params)
 end
 if(model_filename and model_namespace)then
     default_model_action(model_filename,model_namespace,model_params);
+    return
+end
+
+local page_name,params  = path:match("pages/([%w_]+)/?(.*)");
+if(page_name)then
+    include("./pages/" .. page_name .. ".page")
     return
 end
 include(WEB_ROOT .. "/application/index.page")

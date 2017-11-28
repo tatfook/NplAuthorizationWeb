@@ -15,6 +15,11 @@ define([
         '$location',
         '$http',
         function ($auth, $scope, $rootScope, $location, $http) {
+            // set cookie
+            if (!$auth.isAuthenticated() && $.cookie('token')) {
+                $auth.setToken($.cookie('token'));
+            }
+
             var apiBaseUrl = "https://api.github.com";
             var defaultHttpHeader = {
                 "Accept": "application/vnd.github.full+json",
@@ -28,7 +33,8 @@ define([
             $scope.repos = [];
             $scope.files = [];
 
-            $scope.OnLoginGithub = function () {
+            
+            $scope.login = function () {
                 $auth.authenticate("github").then(function (response) {
                     var data = response.data || {};
                     var token = data.token;
@@ -39,6 +45,8 @@ define([
                         $auth.setToken(token);
                         //get user's profile
                         $scope.getProfile();
+
+                        $.cookie('token', token, { path: '/', expires: 365, domain: '.' + config.hostname });
                     } else {
                         console.log("login error", error);
                     }
@@ -46,6 +54,12 @@ define([
                 }, function (response) {
                     console.log("error:", response);
                 });
+            }
+            $scope.logout = function () {
+                $.removeCookie('token', { path: '/', expires: 365, domain: '.' + config.hostname });
+                $auth.logout();
+                $scope.owner = null;
+
             }
             $scope.getProfile = function () {
                 var config = {
@@ -62,20 +76,7 @@ define([
                     }
                 })
             }
-            $scope.getRootTree = function () {
-                var config = {
-                    url: "mods/github/model/github/getRootTree",
-                    header: defaultHttpHeader,
-                    params:{
-                        owner:$scope.owner,
-                        repo:$scope.seleted_repo,
-                    },
-
-                }
-                $http(config).then(function (response) {
-                    console.log("=============getRootTree", response);
-                })
-            }
+            
             $scope.getContent = function (path) {
                 var config = {
                     url: "mods/github/model/github/getContent",
@@ -227,6 +228,10 @@ define([
                 $http(config).then(function (response) {
                     console.log("=============deleteRepos", response);
                 })
+            }
+
+            if ($auth.isAuthenticated()) {
+                $scope.getProfile();
             }
         }]);
 

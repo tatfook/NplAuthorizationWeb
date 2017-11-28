@@ -13,6 +13,7 @@ Date: 2017/10/19
             paths: {
                 'js': jsPathPrefix,
                 'jquery': depsPathPrefix + 'jquery/jquery.min',
+                'jquery-cookie': depsPathPrefix + 'jquery-cookie/jquery.cookie',
                 'angular': depsPathPrefix + 'angular/angular.min',
                 'bootstrap': depsPathPrefix + "bootstrap/js/bootstrap.min",
                 'satellizer': depsPathPrefix + 'satellizer/satellizer.min',

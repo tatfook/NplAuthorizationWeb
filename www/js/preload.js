@@ -4,7 +4,7 @@ Date: 2017/10/20
  */
 // preload modules
 define([
-    'jquery',
+    'jquery-cookie',
     'helper/util',
     'js/indexController',
 ], function () {

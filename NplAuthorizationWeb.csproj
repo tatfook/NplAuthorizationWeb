@@ -53,6 +53,8 @@
     <Content Include="startweb.bat" />
     <Content Include="www\application\mods\github\controller\githubController.js" />
     <Content Include="www\application\mods\github\html\github.html" />
+    <Content Include="www\application\mods\keepwork\controller\keepworkController.js" />
+    <Content Include="www\application\mods\keepwork\html\keepwork.html" />
     <Content Include="www\application\mods\main\controller\mainController.js" />
     <Content Include="www\application\mods\main\html\main.html" />
     <Content Include="www\deps\angular\angular.min.js.gzip" />
@@ -69,6 +71,7 @@
     <Content Include="www\deps\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="www\deps\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="www\deps\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="www\deps\jquery-cookie\jquery.cookie.js" />
     <Content Include="www\deps\satellizer\satellizer.js.map" />
     <Content Include="www\functions\common.page" />
     <Content Include="www\functions\modelbase.page" />
@@ -126,6 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="www\application\mods\github\model\github.page" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="www\application\mods\keepwork\model\keepwork.page" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

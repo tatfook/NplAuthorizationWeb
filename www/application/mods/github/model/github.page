@@ -30,8 +30,6 @@ function github:api_webhookcallback(params)
 end
 -- login callback
 function github:api_logincallback(params)
-    commonlib.echo("========params");
-    commonlib.echo(params);
     local code = params.code;
     local client_id = params.clientId;
     local redirect_uri = params.redirectUri;
@@ -64,8 +62,8 @@ function github:api_getProfile()
     if(not token)then
         return
     end
-    local github = GithubService:new():onInit(token);
-    github:getProfile(resume);
+    local github_service = GithubService:new():onInit(token);
+    github_service:getProfile(resume);
     local err, msg = yield();
     return msg
 end
@@ -77,8 +75,8 @@ function github:api_getContent(params)
     local owner = params.owner;
     local repo = params.repo;
     local path = params.path;
-    local github = GithubService:new():onInit(token);
-    github:getContent(owner,repo,path,resume);
+    local github_service = GithubService:new():onInit(token);
+    github_service:getContent(owner,repo,path,resume);
     local err, msg = yield();
     local content;
     if(err == 200)then
@@ -97,8 +95,8 @@ function github:api_createFile(params)
     local repo = params.repo;
     local path = params.path;
     local content = params.content;
-    local github = GithubService:new():onInit(token);
-    github:createFile(owner,repo,path,content,resume);
+    local github_service = GithubService:new():onInit(token);
+    github_service:createFile(owner,repo,path,content,resume);
     local err, msg = yield();
     return msg
 end
@@ -112,8 +110,8 @@ function github:api_updateFile(params)
     local path = params.path;
     local content = params.content;
 
-    local github = GithubService:new():onInit(token);
-    github:updateFile(owner,repo,path,content,resume);
+    local github_service = GithubService:new():onInit(token);
+    github_service:updateFile(owner,repo,path,content,resume);
     local err, msg = yield();
     return msg
 end
@@ -126,8 +124,8 @@ function github:api_deleteFile(params)
     local repo = params.repo;
     local path = params.path;
 
-    local github = GithubService:new():onInit(token);
-    github:deleteFile(owner,repo,path,resume);
+    local github_service = GithubService:new():onInit(token);
+    github_service:deleteFile(owner,repo,path,resume);
     local err, msg = yield();
     return msg
 end
@@ -139,8 +137,8 @@ function github:api_getRootTree(params)
     local owner = params.owner;
     local repo = params.repo;
 
-    local github = GithubService:new():onInit(token);
-    github:getRootTree(owner,repo,resume);
+    local github_service = GithubService:new():onInit(token);
+    github_service:getRootTree(owner,repo,resume);
     local err, msg = yield();
     return msg
 end
@@ -152,8 +150,8 @@ function github:api_listHooks(params)
     local owner = params.owner;
     local repo = params.repo;
 
-    local github = GithubService:new():onInit(token);
-    github:listHooks(owner,repo,resume);
+    local github_service = GithubService:new():onInit(token);
+    github_service:listHooks(owner,repo,resume);
     local err, msg = yield();
     return msg
 end
@@ -166,8 +164,8 @@ function github:api_createHook(params)
     local repo = params.repo;
     local callback_url = params.callback_url;
 
-    local github = GithubService:new():onInit(token);
-    github:createHook(owner,repo,callback_url,resume);
+    local github_service = GithubService:new():onInit(token);
+    github_service:createHook(owner,repo,callback_url,resume);
     local err, msg = yield();
     return msg
 end
@@ -181,8 +179,8 @@ function github:api_getRepos(params)
     local sort = params.sort;
     local direction = params.direction;
 
-    local github = GithubService:new():onInit(token);
-    github:getRepos(visibility,affiliation,sort,direction,resume);
+    local github_service = GithubService:new():onInit(token);
+    github_service:getRepos(visibility,affiliation,sort,direction,resume);
     local err, msg = yield();
     return msg
 end
@@ -193,8 +191,8 @@ function github:api_createRepos(params)
     end
     local name = params.name;
 
-    local github = GithubService:new():onInit(token);
-    github:createRepos(name,resume);
+    local github_service = GithubService:new():onInit(token);
+    github_service:createRepos(name,resume);
     local err, msg = yield();
     return msg
 end
@@ -206,8 +204,8 @@ function github:api_deleteRepos(params)
     local owner = params.owner;
     local name = params.name;
 
-    local github = GithubService:new():onInit(token);
-    github:deleteRepos(owner,name,resume);
+    local github_service = GithubService:new():onInit(token);
+    github_service:deleteRepos(owner,name,resume);
     local err, msg = yield();
     return msg
 end

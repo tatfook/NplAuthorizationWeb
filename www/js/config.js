@@ -10,7 +10,8 @@ Date: 2017/10/19
     var bustVersion = nplcad_config.bustVersion;
     config = {
         pathPrefix: pathPrefix,
-        bustVersion: bustVersion
+        bustVersion: bustVersion,
+        bustVersion: hostname,
     };
     config.isDebugEnv = function () {
         if (window.location.hostname.indexOf("localhost") >= 0) {

@@ -25,7 +25,7 @@ define([
         // keepwork
         $authProvider.oauth2({
             name: 'keepwork',
-            url: '/models/auth/callback',
+            url: '/mods/keepwork/model/keepwork/logincallback',
             clientId: '1000001',
             redirectUri: window.location.origin + '/pages/example',
             authorizationEndpoint: 'http://keepwork.com/wiki/oauth',

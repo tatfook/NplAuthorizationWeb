@@ -1,0 +1,54 @@
+﻿<?npl
+--[[
+Title: keepwork.page
+Author: leio
+Date: 2017/11/28
+Desc: 
+http://localhost:8099/mods/keepwork/model/keepwork/logincallback
+]]
+local KeepworkService = NPL.load("NplAuthorization/keepwork/KeepworkService.lua");
+
+local client_secret = "daofengkeji";
+local keepwork = inherit(models.abstract.base, gettable("models.mods.keepwork.keepwork"));
+
+local function get_token()
+    if(not request)then
+        return;
+    end
+    local a = request:header("Authorization");
+    if(not a)then
+        return;
+    end
+	local token = a:match("%s+(%S+)");
+    return token; 
+end
+function keepwork:api_logincallback(params)
+    local code = params.code;
+    local client_id = params.clientId;
+    local url = "http://keepwork.com/api/wiki/models/oauth_app/getTokenByCode";
+
+    local input = {
+        code = code,
+        client_id = client_id,
+        client_secret = client_secret,
+    };
+    System.os.GetUrl({url = url, qs = input }, resume);
+    local error, msg = yield();
+    LOG.std(nil, "debug", "keepwork login state", error);
+	LOG.std(nil, "debug", "keepwork login msg", msg);
+    local token;
+    if(msg and msg.data and msg.data.token)then
+        token = msg.data.token;
+    end
+    return { token = token }
+end
+function keepwork:api_getProfile()
+    local token = get_token();
+    if(not token)then
+        return
+    end
+    local keepwork_service = KeepworkService:new():onInit(token);
+    keepwork_service:getProfile(resume);
+    local err, msg = yield();
+    return msg
+end
